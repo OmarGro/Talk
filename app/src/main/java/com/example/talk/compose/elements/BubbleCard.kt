@@ -3,6 +3,7 @@ package com.example.talk.compose.elements
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,8 @@ import com.example.talk.ui.theme.Black
 @Composable
 fun BubbleCard(
     model: ElementModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickCallback: ((ElementModel) -> Unit )? = null
 ) {
     var background = "#FFFFFF"
     var iconTint = "#000000"
@@ -110,6 +112,9 @@ fun BubbleCard(
                             modifier = Modifier
                                 .activeBorder(model.isActive)
                                 .align(Alignment.Center)
+                                .clickable {
+                                    onClickCallback?.invoke(model)
+                                }
                         ) {
                             Box(
                                 modifier = Modifier
