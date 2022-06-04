@@ -6,15 +6,31 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.talk.compose.elements.MainViewPager
+import com.example.talk.ui.models.ElementModel
+import com.example.talk.ui.models.MessageListItemModel
+import com.example.talk.ui.models.MessageListItemState
 import com.example.talk.ui.theme.TalkTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val item = MessageListItemModel(
+            title = "Connect Friends",
+            state = MessageListItemState.PINNED,
+            dateLastMessage = "2/21/20",
+        )
+
+        val chats = listOf(item)
+
+        val status = ElementModel(
+            title = "My Status",
+            isActive = true
+        )
+        val chatStatus = listOf(status)
+
         setContent {
             TalkTheme {
                 // A surface container using the 'background' color from the theme
@@ -22,22 +38,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MainViewPager(
+                        chatStatus,
+                        chats
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TalkTheme {
-        Greeting("Android")
     }
 }
